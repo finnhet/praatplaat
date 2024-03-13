@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
+    <title>loginheader</title>
     <style>
     body {
     margin: 0;
@@ -43,7 +43,20 @@
 }
 
 .navbar ul li a:hover {
-    color: #ffd700; /* Change color on hover */
+    color: #ffd700; 
+}
+
+.back-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #ffd700;
+    color: #333;
 }
 </style>
     <link rel="stylesheet" href="styles.css">
@@ -58,10 +71,7 @@
             </div>
             <div class="menu">
                 <ul>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="portfolio.php">Portfolio</a></li>
-                    <li><a href="contact.php">Contact</a></li>
+              
                 </ul>
             </div>
         </div>
@@ -69,4 +79,14 @@
 </header>
 
 <!-- Your website content goes here -->
+
+<a href="index.php" class="back-button">Back</a>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
 

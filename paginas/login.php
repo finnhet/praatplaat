@@ -6,15 +6,43 @@
     <title>Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
             background-color: #f3f3f3;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
+
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffd700;
+        }
+
         .login-container {
             background-color: #fff;
             border-radius: 10px;
@@ -23,12 +51,16 @@
             width: 400px;
             max-width: 90%;
             text-align: center;
+            margin-top: 80px; /* Adjusted to accommodate header */
         }
+
         h2 {
             margin-bottom: 30px;
             color: #333;
         }
-        input[type="text"], input[type="password"] {
+
+        input[type="text"],
+        input[type="password"] {
             width: calc(100% - 20px);
             padding: 10px;
             margin: 10px 0;
@@ -36,7 +68,9 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        input[type="submit"] {
+
+        input[type="submit"],
+        .btn {
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -46,31 +80,60 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-        input[type="submit"]:hover {
+
+        input[type="submit"]:hover,
+        .btn:hover {
             background-color: #0056b3;
         }
+
         .signup-link {
             margin-top: 20px;
             font-size: 14px;
         }
+
         .signup-link a {
             color: #007bff;
             text-decoration: none;
             transition: color 0.3s ease;
         }
+
         .signup-link a:hover {
             color: #0056b3;
+        }
+
+        .back-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .back-button:hover {
+            background-color: #ffd700;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form action="#" method="post">
-            <input type="text" name="username" placeholder="Gebruikersnaam  " required><br>
-            <input type="password" name="password" placeholder="Wachtwoord" required><br>
-            <input type="submit" value="login">
-        </form>
-    </div>
+
+
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="#" method="post">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" value="Login">
+    </form>
+  
+</div>
+
+<a href="index.php" class="back-button">terug</a>
+
 </body>
 </html>
