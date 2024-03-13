@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praatplaat</title>
     <?php
-    include '../hooters/header.php'
+    include '../extra/header.php'
     ?>
     <style>
         body {

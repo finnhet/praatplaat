@@ -5,68 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website Title</title>
     <style>
-    body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Adding a background color for better contrast */
+        }
 
-.main-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        /* Improved header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+        }
 
-.logo img {
-    height: 40px;
-    width: auto;
-}
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
 
-.navbar ul li {
-    display: inline;
-    margin-right: 20px;
-}
+        .menu ul li {
+            margin-left: 20px; /* Adjusting spacing between menu items */
+        }
 
-.navbar ul li a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+        .menu ul li:first-child {
+            margin-left: 0; /* Removing margin for the first menu item */
+        }
 
-.navbar ul li a:hover {
-    color: #ffd700; /* Change color on hover */
-}
-</style>
-    <link rel="stylesheet" href="styles.css">
+        .menu ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .menu ul li a:hover {
+            color: #ffd700; /* Change color on hover */
+        }
+
+        .login-button {
+            background-color: #ffd700;
+            color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #ffc107; /* Darken the color on hover */
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- If you have additional styles -->
 </head>
 <body>
 
 <header>
-    <nav>
-        <div class="container">
-            <div class="logo">
-                <a href="index.php">Your Logo</a>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="about.php">About</a></li>
-                    <li><a href="login.php">login</a></li>
-                    <li><a href="portfolio.php">Portfolio</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                </ul>
-            </div>
+    <div class="container">
+        <div class="logo">
+            <h1>Praatplaat</h1> <!-- Text instead of logo -->
         </div>
-    </nav>
+        <div class="menu">
+            <ul>
+                
+            </ul>
+        </div>
+        <li><a class="login-button"href="login.php">Login</a></li>
+       
+    </div>
 </header>
 
 <!-- Your website content goes here -->
 
+</body>
+</html>
