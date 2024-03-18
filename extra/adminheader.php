@@ -12,8 +12,8 @@ body {
 }
 
 .admin-header {
-    background-color: #2c3e50; /* Dark blue */
-    color: #fff; /* Text color */
+    background-color: #2c3e50; 
+    color: #fff; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +45,7 @@ body {
 }
 
 .admin-nav ul li a:hover {
-    color: #f39c12; /* Orange */
+    color: #f39c12; 
 }
 
 .user-profile {
@@ -68,18 +68,17 @@ body {
 </head>
 <body>
 
-<!-- HTML Content -->
 <header class="admin-header">
     <div class="brand">
         <h1>AdminPanel</h1>
     </div>
     <nav class="admin-nav">
         <ul>
-            <li><a href="#">Praatplaten</a></li>
+            <li><a href="#">Praatplatenz</a></li>
             <li><a href="#">Elementen</a></li>
             <li><a href="#">Uitlog</a></li>
       
-            <!-- Add more navigation items as needed -->
+            
         </ul>
     </nav>
 
