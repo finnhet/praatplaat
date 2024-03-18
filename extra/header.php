@@ -9,15 +9,13 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Adding a background color for better contrast */
+            background-color: #f0f0f0;
         }
 
-        /* Improved header styles */
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: #fff;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .container {
@@ -28,66 +26,41 @@
             margin: 0 auto;
         }
 
-        .menu ul {
-            list-style-type: none;
+        .logo h1 {
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .menu ul li {
-            margin-left: 20px; /* Adjusting spacing between menu items */
-        }
-
-        .menu ul li:first-child {
-            margin-left: 0; /* Removing margin for the first menu item */
-        }
-
-        .menu ul li a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .menu ul li a:hover {
-            color: #ffd700; /* Change color on hover */
+            font-size: 24px;
+            color: #333;
         }
 
         .login-button {
-            background-color: #ffd700;
-            color: #333;
+            background-color: #333;
+            color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
         }
 
         .login-button:hover {
-            background-color: #ffc107; /* Darken the color on hover */
+            background-color: #555;
         }
     </style>
-    <link rel="stylesheet" href="styles.css"> <!-- If you have additional styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
     <div class="container">
         <div class="logo">
-            <h1>Praatplaat</h1> <!-- Text instead of logo -->
+            <h1>Praatplaat</h1>
         </div>
-        <div class="menu">
-            <ul>
-                
-            </ul>
-        </div>
-        <li><a class="login-button"href="login.php">Login</a></li>
-       
+        <nav>
+            <a class="login-button" href="login.php">Login</a>
+        </nav>
     </div>
 </header>
-
-<!-- Your website content goes here -->
 
 </body>
 </html>
