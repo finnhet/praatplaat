@@ -64,7 +64,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
 
       <form action="uploadElement.php" method="POST">
 
-      <input type="hidden" name="productID" value="<?php htmlspecialchars($row['id']); ?>">
+      <input type="hidden" name="id" value="<?php htmlspecialchars($row['id']); ?>">
       <input class="form-control input-gap" type="text" name="NaamNL" placeholder="Naam NL" aria-label="default input example">
       <input class="form-control input-gap" type="text" name="NaamFR" placeholder="Naam FR" aria-label="default input example">
       <input class="form-control input-gap" type="text" name="NaamEN" placeholder="Naam EN" aria-label="default input example">
