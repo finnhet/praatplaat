@@ -114,8 +114,8 @@ body {
     </div>
     <nav class="admin-nav">
         <ul>
-            <li><a href="#">Praatplaten</a></li>
-            <li><a href="#">Elementen</a></li>
+            <li><a href="../paginas/praatplaat.php">Praatplaten</a></li>
+            <li><a href="../elementEdit.php">Elementen</a></li>
             <li><a href="#">Uitlog</a></li>
         </ul>
     </nav>

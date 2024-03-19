@@ -1,153 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plaatplaten Management</title>
-<?php
-include '../extra/adminheader.php'
-?>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementen Bewerken</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
     body {
-        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
     }
+
     .container {
-        width: 100%;
-        max-width: 400px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
     }
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
+
+    .gap-1 {
+        gap: 1rem !important;
     }
-    .button {
-        display: block;
-        width: 100%;
-        max-width: 200px;
-        margin: 0 auto 20px;
-        padding: 12px 24px;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        text-align: center;
-        transition: background-color 0.3s;
+
+    .input-gap {
+        margin-bottom: 1rem; 
     }
-    .button:hover {
-        background-color: #0056b3;
+
+    .btn-dark {
+        margin-top: 1rem;
     }
-    form {
-        text-align: center;
-        margin-top: 30px;
+
+    .card-body {
+        padding: 1.25rem;
     }
-    label {
-        font-weight: bold;
-    }
-    select {
-        display: block;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto 20px;
-        padding: 12px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        text-align-last: center;
-    }
-    input[type="submit"] {
-        display: block;
-        width: 100%;
-        max-width: 200px;
-        margin: 0 auto;
-        padding: 12px 24px;
-        background-color: #ff3d00;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    input[type="submit"]:hover {
-        background-color: #d32f00;
-    }
-    
-</style>
+
+    </style>
 </head>
 <body>
+<div class="container text-center">
+    <p class="d-inline-flex gap-1">
+        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
+        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
+        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
+    </p>
 
-<div class="container">
-    <h1>Plaatplaten Management</h1>
-    
-    <a href="praatplaattvg.php" class="button">Add Plaatplaat</a>
-    <a href="change_plaatplaat.php" class="button">Change Plaatplaat</a>
+    <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <div class="card">
+                <div class="card-body">
+                    <form action="praatplaattvg.php" method="post" enctype="multipart/form-data">
+                        <input class="form-control input-gap" type="text" name="naam_nl" placeholder="Naam Nederlands" aria-label="default input example">
+                        <input class="form-control input-gap" type="text" name="naam_fr" placeholder="Naam Fries" aria-label="default input example">
+                        <input class="form-control input-gap" type="text" name="naam_en" placeholder="Naam Engels" aria-label="default input example">
+                        <input class="form-control input-gap" type="file" name="foto" id="formFile">
+                        <input type="submit" class="btn btn-dark" name="add_submit" value="Toevoegen">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form id="removeForm" method="post">
-        <label for="plaatplaat">Select Plaatplaat to Remove:</label>
-        <?php
-      
-        include '../extra/adminheader.php';
-
-        // Assuming you already have a database connection established
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "praatplaat";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Fetch data from the database
-        $sql = "SELECT id, NaamNL FROM praatplaten";
-        $result = $conn->query($sql);
-
-        // Check if there are rows returned
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            echo '<select name="plaatplaat" id="plaatplaat">';
-            while($row = $result->fetch_assoc()) {
-                echo '<option value="' . $row["id"] . '">' . $row["NaamNL"] . '</option>';
-            }
-            echo '</select>';
-        } else {
-            echo "0 results";
-        }
-
-        // Close connection
-        $conn->close();
-        ?>
-
-        <input type="button" id="removeButton" value="Remove">
-    </form>
+    <div class="col">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+            <div class="card">
+                <div class="card-body">
+                    <form action="wijzigpraatplaat.php" method="post" enctype="multipart/form-data">
+                        <select class="form-select input-gap" name="plaatplaat_id" aria-label="Default select example">
+                            <option selected>Selecteer een praatplaat</option>
+                            <?php
+                            include '../db.php';
+                            $sql = "SELECT id, NaamNL FROM praatplaten";
+                            $result = $conn->query($sql);
+                            
+                          
+                            if (!$result) {
+                            
+                                echo "Error bij het ophalen van praatplaten: " . $conn->error;
+                            } else {
+                             
+                                if ($result->num_rows > 0) {
+                                   
+                                    while ($row = $result->fetch_assoc()) {
+                                      
+                                        echo "<option value='" . $row["id"] . "'>" . $row["NaamNL"] . "</option>";
+                                    }
+                                } else {
+                              
+                                    echo "<option disabled>Geen praatplaten gevonden</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                        <input class="form-control input-gap" type="text" name="naam_nl" placeholder="Nieuwe Naam NL" aria-label="default input example">
+                        <input class="form-control input-gap" type="text" name="naam_fr" placeholder="Nieuwe Naam FR" aria-label="default input example">
+                        <input class="form-control input-gap" type="text" name="naam_en" placeholder="Nieuwe Naam EN" aria-label="default input example">
+                        <input class="form-control input-gap" type="file" name="foto" id="formFile">
+                        <input type="submit" class="btn btn-dark" name="edit_submit" value="Bewerken">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script>
-document.getElementById("removeButton").addEventListener("click", function() {
-    var plaatplaatId = document.getElementById("plaatplaat").value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../extra/vwdpraatplaat.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            alert(xhr.responseText);
-        }
-    };
-    xhr.send("plaatplaat=" + plaatplaatId);
-});
-</script>
+<div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample3">
+      <div class="card card-body">
+        
 
+
+      <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Naam</th>
+                    <th>Actie</th>
+                </tr>
+            </thead>
+            <tbody>
+              
+                <?php
+                include '../db.php';
+                $sql = "SELECT id, NaamNL FROM praatplaten";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id"] . "</td>";
+                        echo "<td>" . $row["NaamNL"] . "</td>";
+                     
+                        echo "<td>";
+                        echo "<form action='../extra/vwdpraatplaat.php' method='post'>";
+                        echo "<input type='hidden' name='praatplaat_id' value='" . $row["id"] . "'>";
+                        echo "<button type='submit' class='btn btn-danger'>Verwijderen</button>";
+                        echo "</form>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3'>Geen praatplaten gevonden</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+  
+
+
+    </table>
 </body>
 </html>
