@@ -4,9 +4,14 @@ include('extra\database.con.php');
 
 $conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
-$query = "SELECT * FROM `elementen` ";
+$query = "SELECT * FROM elementen ";
 $result = mysqli_query($conn, $query);
 $data = $result->fetch_all(MYSQLI_ASSOC);
+
+$query = "SELECT * FROM praatplaten";
+$result = mysqli_query($conn, $query);
+$data = $result->fetch_all(MYSQLI_ASSOC);
+
 
 ?>
 <!DOCTYPE html>
@@ -69,10 +74,18 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
       <input class="form-control input-gap" type="text" name="NaamFR" placeholder="Naam FR" aria-label="default input example">
       <input class="form-control input-gap" type="text" name="NaamEN" placeholder="Naam EN" aria-label="default input example">
 
-      <select class="form-select input-gap" aria-label="Default select example">
-      <option selected>Selecteer een categorie</option>
-      <option value="1">....</option>
-      </select>
+      
+      <select class="form-select input-gap" name="cat" aria-label="Default select example">
+  <option selected>Selecteer een categorie</option>
+  <?php foreach ($praatplaten as $praatplaat): ?>
+      <option value="<?php echo htmlspecialchars($praatplaat['id']); ?>"
+        <?php if ($praatplaat['id'] == $elementCatId) echo 'selected'; ?>>
+        <?php echo htmlspecialchars($praatplaat['NaamNL']); ?>
+      </option>
+  <?php endforeach; ?>
+</select>
+
+
 
       <label for="formFile" class="form-label">Voeg een element toe.</label>
       <input class="form-control" type="file" id="formFile">
