@@ -4,17 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Plaatplaten Management</title>
-
+<?php
+include '../extra/adminheader.php'
+?>
 <style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
     .container {
-        max-width: 800px;
-        margin: 20px auto;
+        width: 100%;
+        max-width: 400px;
         padding: 20px;
         background-color: #fff;
         border-radius: 8px;
@@ -22,16 +28,19 @@
     }
     h1 {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
     .button {
-        display: inline-block;
-        padding: 10px 20px;
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 20px;
+        padding: 12px 24px;
         background-color: #007bff;
         color: #fff;
         text-decoration: none;
         border-radius: 5px;
-        margin-right: 10px;
+        text-align: center;
         transition: background-color 0.3s;
     }
     .button:hover {
@@ -39,19 +48,27 @@
     }
     form {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 30px;
     }
     label {
         font-weight: bold;
     }
     select {
-        padding: 10px;
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 20px;
+        padding: 12px;
         border-radius: 5px;
         border: 1px solid #ccc;
-        margin-right: 10px;
+        text-align-last: center;
     }
     input[type="submit"] {
-        padding: 10px 20px;
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        padding: 12px 24px;
         background-color: #ff3d00;
         color: #fff;
         border: none;
@@ -62,6 +79,7 @@
     input[type="submit"]:hover {
         background-color: #d32f00;
     }
+    
 </style>
 </head>
 <body>
@@ -69,65 +87,67 @@
 <div class="container">
     <h1>Plaatplaten Management</h1>
     
-    <a href="add_plaatplaat.php" class="button">Add Plaatplaat</a>
+    <a href="praatplaattvg.php" class="button">Add Plaatplaat</a>
     <a href="change_plaatplaat.php" class="button">Change Plaatplaat</a>
 
-   
+    <form id="removeForm" method="post">
         <label for="plaatplaat">Select Plaatplaat to Remove:</label>
-        <select name="plaatplaat" id="plaatplaat">
-            <?php
-            // Your PHP code to fetch plaatplaten from the database and populate the dropdown
-            // Example:
-            $plaatplaten = ["Plaatplaat 1", "Plaatplaat 2", "Plaatplaat 3"]; // Dummy data
-            foreach ($plaatplaten as $plaatplaat) {
-                echo "<option value='$plaatplaat'>$plaatplaat</option>";
+        <?php
+      
+        include '../extra/adminheader.php';
+
+        // Assuming you already have a database connection established
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "praatplaat";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Fetch data from the database
+        $sql = "SELECT id, NaamNL FROM praatplaten";
+        $result = $conn->query($sql);
+
+        // Check if there are rows returned
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            echo '<select name="plaatplaat" id="plaatplaat">';
+            while($row = $result->fetch_assoc()) {
+                echo '<option value="' . $row["id"] . '">' . $row["NaamNL"] . '</option>';
             }
-            ?>
-        </select>
-        <input type="submit" value="Remove">
+            echo '</select>';
+        } else {
+            echo "0 results";
+        }
+
+        // Close connection
+        $conn->close();
+        ?>
+
+        <input type="button" id="removeButton" value="Remove">
     </form>
 </div>
-<?php
-// Assuming you already have a database connection established
-$servername = "localhost";
 
-$username = "root";
-$password = "";
-$dbname = "praatplaat";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if a plaatplaat has been selected for removal
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["plaatplaat"])) {
-    $plaatplaat_id = $_POST["plaatplaat"];
-
-    // Prepare and bind SQL statement
-    $stmt = $conn->prepare("DELETE FROM praatplaten WHERE id = ?");
-    $stmt->bind_param("i", $plaatplaat_id);
-
-    // Execute statement
-    if ($stmt->execute()) {
-        echo "Plaatplaat with ID '$plaatplaat_id' has been removed successfully.";
-    } else {
-        echo "Error removing plaatplaat: " . $conn->error;
-    }
-
-    // Close statement
-    $stmt->close();
-} else {
-}
-
-// Close connection
-$conn->close();
-?>
-
-
+<script>
+document.getElementById("removeButton").addEventListener("click", function() {
+    var plaatplaatId = document.getElementById("plaatplaat").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../extra/vwdpraatplaat.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            alert(xhr.responseText);
+        }
+    };
+    xhr.send("plaatplaat=" + plaatplaatId);
+});
+</script>
 
 </body>
 </html>
