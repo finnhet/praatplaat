@@ -1,7 +1,6 @@
 <?php
 include '../db.php';
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
     // Get form data
     $plaatplaat_id = $_POST['plaatplaat_id'];
@@ -9,26 +8,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
     $naam_fr = $_POST['naam_fr'];
     $naam_en = $_POST['naam_en'];
 
-   
+    // Check if a new photo is uploaded
     if ($_FILES['foto']['size'] > 0) {
-        
         $target_dir = "../fotos/"; 
         $target_file = $target_dir . basename($_FILES["foto"]["name"]);
         $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    
         $check = getimagesize($_FILES["foto"]["tmp_name"]);
-        if($check !== false) {
-           
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
+        if ($check !== false) {
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif") {
                 echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 $uploadOk = 0;
             } else {
-                
                 if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
-                  
                     $foto_name = basename($_FILES["foto"]["name"]);
                     updatePraatplaat($plaatplaat_id, $naam_nl, $naam_fr, $naam_en, $foto_name);
                 } else {
@@ -40,37 +34,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
             $uploadOk = 0;
         }
     } else {
-       
-        updatePraatplaat($plaatplaat_id, $naam_nl, $naam_fr, $naam_en);
+        // No new photo provided, update the database without changing the photo and retain existing name values
+        updatePraatplaat($plaatplaat_id);
     }
 }
 
-
-function updatePraatplaat($id, $naam_nl, $naam_fr, $naam_en, $foto_name = null) {
+function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null, $foto_name = null) {
     include '../db.php';
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
+    // Prepare the SQL statement
     if ($foto_name) {
-        $stmt = $conn->prepare("UPDATE praatplaten SET Foto=?, NaamNL=?, NaamFR=?, NaamEN=? WHERE id=?");
-        $stmt->bind_param("ssssi", $foto_name, $naam_nl, $naam_fr, $naam_en, $id);
+        $stmt = $conn->prepare("UPDATE praatplaten SET Foto=? WHERE id=?");
+        $stmt->bind_param("si", $foto_name, $id);
     } else {
-        $stmt = $conn->prepare("UPDATE praatplaten SET NaamNL=?, NaamFR=?, NaamEN=? WHERE id=?");
-        $stmt->bind_param("sssi", $naam_nl, $naam_fr, $naam_en, $id);
+        // No new photo provided, update only the name fields if they are not empty
+        $sql = "UPDATE praatplaten SET ";
+        $params = array();
+        if (!empty($naam_nl)) {
+            $sql .= "NaamNL=?, ";
+            $params[] = $naam_nl;
+        }
+        if (!empty($naam_fr)) {
+            $sql .= "NaamFR=?, ";
+            $params[] = $naam_fr;
+        }
+        if (!empty($naam_en)) {
+            $sql .= "NaamEN=?, ";
+            $params[] = $naam_en;
+        }
+        // Remove the last comma and space
+        $sql = rtrim($sql, ", ");
+        // Add condition for id
+        $sql .= " WHERE id=?";
+        // Add id to params
+        $params[] = $id;
+
+        // Prepare and bind parameters
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            echo "Error preparing statement: " . $conn->error;
+            return;
+        }
+        // Dynamically bind parameters
+        $types = str_repeat('s', count($params) + 1); // Add 1 for the id parameter
+        $stmt->bind_param($types, ...$params, $id);
     }
-    
+
+    // Execute the statement
     if ($stmt->execute()) {
         echo "Praatplaat bijgewerkt.";
     } else {
         echo "Fout bij bijwerken van praatplaat: " . $conn->error;
     }
 
+    // Close the statement and connection
     $stmt->close();
     $conn->close();
 
-
+    // Redirect to the page after updating
     header("Location: praatplaat.php");
     exit();
 }
