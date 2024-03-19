@@ -11,13 +11,13 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
         }
-
+ 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
+ 
         .board {
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -27,27 +27,27 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
         }
-
+ 
         .board:hover {
             transform: translateY(-4px);
         }
-
+ 
         .board img {
             width: 100%;
             height: auto;
             border-radius: 8px 8px 0 0;
         }
-
+ 
         .board-content {
             padding: 20px;
         }
-
+ 
         .board h2 {
             font-size: 18px;
             margin: 0 0 10px;
             color: #333;
         }
-
+ 
         .board p {
             font-size: 14px;
             margin: 0;
@@ -60,11 +60,11 @@
         <div class="row">
             <?php
             include '../db.php'; // Include your database connection file
-
+ 
             // Select data from the "praatplaten" table
             $sql = "SELECT * FROM praatplaten";
             $result = $conn->query($sql);
-
+ 
             // Check if there are any rows in the result
             if ($result->num_rows > 0) {
                 // Output data of each row
@@ -84,7 +84,7 @@
             } else {
                 echo "Geen items gevonden.";
             }
-
+ 
             // Close the database connection
             $conn->close();
             ?>
@@ -92,3 +92,4 @@
     </div> <!-- .container -->
 </body>
 </html>
+ 
