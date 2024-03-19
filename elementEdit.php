@@ -1,3 +1,9 @@
+<?php
+
+include('extra\database.con.php');
+
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
