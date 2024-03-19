@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
             } else {
                 if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
                     $foto_name = basename($_FILES["foto"]["name"]);
-                    updatePraatplaat($plaatplaat_id, $naam_nl, $naam_fr, $naam_en, $foto_name);
+                    updatePraatplaat($plaatplaat_id, null, null, null, $foto_name);
                 } else {
                     echo "Sorry, there was an error uploading your file.";
                 }
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
         }
     } else {
         // No new photo provided, update the database without changing the photo and retain existing name values
-        updatePraatplaat($plaatplaat_id);
+        updatePraatplaat($plaatplaat_id, $naam_nl, $naam_fr, $naam_en);
     }
 }
 
@@ -48,23 +48,27 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
 
     // Prepare the SQL statement
     if ($foto_name) {
-        $stmt = $conn->prepare("UPDATE praatplaten SET Foto=? WHERE id=?");
+        $stmt = $conn->prepare("UPDATE praatplaten SET foto_path=? WHERE id=?");
         $stmt->bind_param("si", $foto_name, $id);
     } else {
         // No new photo provided, update only the name fields if they are not empty
         $sql = "UPDATE praatplaten SET ";
         $params = array();
+        $types = '';
         if (!empty($naam_nl)) {
             $sql .= "NaamNL=?, ";
             $params[] = $naam_nl;
+            $types .= 's';
         }
         if (!empty($naam_fr)) {
             $sql .= "NaamFR=?, ";
             $params[] = $naam_fr;
+            $types .= 's';
         }
         if (!empty($naam_en)) {
             $sql .= "NaamEN=?, ";
             $params[] = $naam_en;
+            $types .= 's';
         }
         // Remove the last comma and space
         $sql = rtrim($sql, ", ");
@@ -80,8 +84,8 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
             return;
         }
         // Dynamically bind parameters
-        $types = str_repeat('s', count($params) + 1); // Add 1 for the id parameter
-        $stmt->bind_param($types, ...$params, $id);
+        $types .= 'i'; // Add 'i' for the id parameter
+        $stmt->bind_param($types, ...$params);
     }
 
     // Execute the statement
@@ -99,4 +103,5 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
     header("Location: praatplaat.php");
     exit();
 }
+
 ?>
