@@ -43,7 +43,7 @@ CREATE TABLE `gebruikers` (
 
 CREATE TABLE `elementen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Foto` BLOB DEFAULT NULL,
+  `Foto`  varchar(255) DEFAULT NULL,
   `NaamNL` varchar(255) DEFAULT NULL,
   `NaamFR` varchar(255) DEFAULT NULL,
   `NaamEN` varchar(255) DEFAULT NULL,
