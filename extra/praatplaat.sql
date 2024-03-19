@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `praatplaten` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Foto` BLOB DEFAULT NULL,
+  `foto_path` varchar(255) DEFAULT NULL,  -- Store the file path or filename
   `NaamNL` varchar(255) DEFAULT NULL,
   `NaamFR` varchar(255) DEFAULT NULL,
   `NaamEN` varchar(255) DEFAULT NULL,
-  
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Table structure for table `gebruikers`
