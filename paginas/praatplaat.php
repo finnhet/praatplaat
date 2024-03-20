@@ -48,7 +48,7 @@
     }
 
     .multi-collapse {
-        margin-top: -50px; /* Adjust the margin to move the collapse elements higher up */
+        margin-top: 1rem; /* Adjust the margin to move the collapse elements higher up */
     }
 
     </style>
@@ -56,9 +56,17 @@
 <body>
 <div class="container">
     <div class="btn-container">
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
+            </div>
+        </div>
     </div>
 </div>
 
