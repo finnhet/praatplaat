@@ -6,21 +6,33 @@
     <title>Elementen Bewerken</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <?php include '../extra/adminheader.php'; ?>
     <style>
     body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
         background-color: #f3f3f3;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        height: 105vh;
     }
 
     .container {
         margin-top: 2rem;
     }
 
-    .gap-1 {
-        gap: 1rem !important;
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .btn-container .btn {
+        margin: 5px;
+        width: 200px; /* Adjust button width */
     }
 
     .input-gap {
@@ -35,16 +47,30 @@
         padding: 1.25rem;
     }
 
+    .multi-collapse {
+        margin-top: 1rem; /* Adjust the margin to move the collapse elements higher up */
+    }
+
     </style>
 </head>
 <body>
-<div class="container text-center">
-    <p class="d-inline-flex gap-1">
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
-        <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
-    </p>
+<div class="container">
+    <div class="btn-container">
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container">
     <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="card">
@@ -150,6 +176,6 @@
   
 
 
-    </table>
+    </div>
 </body>
 </html>
