@@ -36,6 +36,9 @@
             width: 100%;
             height: auto;
             border-radius: 8px 8px 0 0;
+            float: 10px;
+            margin: auto;
+            object-fit: contain;
         }
  
         .board-content {
