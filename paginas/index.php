@@ -22,6 +22,9 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
         }
         h1 {
             text-align: center;
@@ -38,14 +41,12 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
-            margin: 10px;
-            float: left;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
  
         .board img {
             width: 200px;
-            height:140px;
+            height: 178px;
             border-radius: 5px;
         }
  
@@ -73,19 +74,18 @@
         if ($result->num_rows > 0) {
             // Output data of each row
             while ($row = $result->fetch_assoc()) {
-               // Display the photo using an <img> tag with base64 encoded data
-echo "<div class='board'>";
-echo "<a href='elementen.php?id=" . $row['id'] . "' class='board-link'>";
-echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "'>";
-// Display other information
-echo "<div class='board-content'>";
-echo "<h2>" . $row['NaamNL'] . "</h2>";
-echo "<p>" . $row['NaamEN'] . "</p>";
-echo "<p>" . $row['NaamFR'] . "</p>";
-echo "</div>"; // .board-content
-echo "</a>"; // Close the <a> tag
-echo "</div>"; // .board
-
+                // Display the photo using an <img> tag with base64 encoded data
+                echo "<div class='board'>";
+                echo "<a href='elementen.php?id=" . $row['id'] . "' class='board-link'>";
+                echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "'>";
+                // Display other information
+                echo "<div class='board-content'>";
+                echo "<h2>" . $row['NaamNL'] . "</h2>";
+                echo "<p>" . $row['NaamEN'] . "</p>";
+                echo "<p>" . $row['NaamFR'] . "</p>";
+                echo "</div>"; // .board-content
+                echo "</a>"; // Close the <a> tag
+                echo "</div>"; // .board
             }
         } else {
             echo "Geen items gevonden.";
@@ -97,4 +97,3 @@ echo "</div>"; // .board
     </div>
 </body>
 </html>
- 
