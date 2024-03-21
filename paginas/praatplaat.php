@@ -58,13 +58,13 @@
     <div class="btn-container">
         <div class="row">
             <div class="col">
-                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">praatplaat toevoegen</a>
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Praatplaat Toevoegen</a>
             </div>
             <div class="col">
-                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">praatplaat wijzigen</a>
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">Praatplaat Wijzigen</a>
             </div>
             <div class="col">
-                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">praatplaat verwijderen</a>
+                <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">Praatplaat Verwijderen</a>
             </div>
         </div>
     </div>

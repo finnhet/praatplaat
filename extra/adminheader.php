@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel</title>
+<title>Admin Header</title>
 <style>
-/* CSS Styles */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -17,18 +16,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem; /* Increased padding */
+    padding: 1.5rem 2rem; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     position: fixed;
     top: 0;
     left: 0;
     width: 99%;
-    z-index: 1000; /* Ensures the header is above other content */
+    z-index: 1000; 
 }
 
 .brand h1 {
     margin: 0;
-    font-size: 2rem; /* Increased font size */
+    font-size: 2rem;
 }
 
 .admin-nav ul {
@@ -39,13 +38,13 @@ body {
 
 .admin-nav ul li {
     display: inline-block;
-    margin-right: 1.5rem; /* Increased margin */
+    margin-right: 1.5rem; 
 }
 
 .admin-nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: 1.2rem; /* Increased font size */
+    font-size: 1.2rem; 
     transition: color 0.3s ease;
 }
 
@@ -59,8 +58,8 @@ body {
 }
 
 .avatar {
-    width: 3.5rem; /* Increased avatar size */
-    height: 3.5rem; /* Increased avatar size */
+    width: 3.5rem; 
+    height: 3.5rem; 
     border-radius: 50%;
     margin-right: 1rem;
 }
@@ -104,13 +103,20 @@ body {
         padding-top: 5rem; /* Adjusted padding for smaller screens */
     }
 }
+
+.ontlinken { 
+    
+            color: inherit;
+            text-decoration-line: none;
+        
+}
 </style>
 </head>
 <body>
 
 <header class="admin-header">
     <div class="brand">
-        <h1>AdminPanel</h1>
+    <h1> <a class="ontlinken" href="../paginas/index.php">Praatplaat</a> </h1>
     </div>
     <nav class="admin-nav">
         <ul>

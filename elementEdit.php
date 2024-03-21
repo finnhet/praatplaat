@@ -1,13 +1,19 @@
 <?php
 
-include('../db.php');
-include('uploadElement.php');
-// Fetch categories from 'praatplaten' table
+include('extra\database.con.php');
+
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
+
+$query = "SELECT * FROM elementen ";
+$result = mysqli_query($conn, $query);
+$data = $result->fetch_all(MYSQLI_ASSOC);
+
 $query = "SELECT * FROM praatplaten";
 $result = mysqli_query($conn, $query);
-$praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
-?>
+$data = $result->fetch_all(MYSQLI_ASSOC);
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +81,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten");
       while($c = mysqli_fetch_array($praatplaten)){
         ?>
-      <option value="<?php echo $C ['id']?>"><?php echo $c ['NaamNL'] ?>
+      <option value="<?php echo $C ['ID_platen']?>"><?php echo $c ['NLnaam'] ?>
       </option>
   <?php } ?>
 </select>

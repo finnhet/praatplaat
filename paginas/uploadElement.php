@@ -1,42 +1,35 @@
 <?php
+include('extra\database.con.php');
 
-include('../db.php');
+$conn = new mysqli($servername, $db_username, $db_password, $dbname);
 
-
-if (isset($_POST['uploadElement.php'])) {
-    // Check if file is uploaded without errors
-    if (isset($_FILES['Foto']) && $_FILES['Foto']['error'] === UPLOAD_ERR_OK) {
-        // File details
-        $file_name = $_FILES['Foto']['name'];
-        $file_tmp = $_FILES['Foto']['tmp_name'];
-
-        // Move uploaded file to directory
-        $upload_directory = "../fotos/"; // Specify directory here
-        $destination = $upload_directory . $file_name;
-        if (move_uploaded_file($file_tmp, $destination)) {
-            // Retrieve other form data
-            $NaamNL = $_POST['NaamNL'];
-            $NaamFR = $_POST['NaamFR'];
-            $NaamEN = $_POST['NaamEN'];
-
-            // Prepare an SQL statement to prevent SQL injection
-            $stmt = $conn->prepare("INSERT INTO elementen (id, Foto, NaamNL, NaamFR, NaamEN) VALUES (NULL, ?, ?, ?, ?)");
-            // Bind parameters to the SQL query
-            $stmt->bind_param("ssss", $file_name, $NaamNL, $NaamFR, $NaamEN);
-
-            if ($stmt->execute()) {
-                // Redirect only if the query was successful
-                header('Location: elementedit.php');
-                exit(0);
-            } else {
-                echo "Error: " . $stmt->error;
-            }
-        } else {
-            echo "Failed to move the file.";
-        }
-    } else {
-        echo "File upload error.";
-    }
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
+if(isset($_POST['uploadEle'])){
+    $NaamNL = $_POST['NaamNL'];
+    $NaamFR = $_POST['NaamFR'];
+    $NaamEN = $_POST['NaamEN'];
+    $cat = $_POST['cat'];
+
+    // Check if the cat exists in praatplaten
+    $stmt = $conn->prepare("SELECT ID_Platen FROM praatplaten WHERE ID_Platen = ?");
+    $stmt->bind_param("i", $cat);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if($result->num_rows == 0){
+        echo "<script>alert('Category does not exist in praatplaten.');</script>";
+    } else {
+        // The cat exists, proceed with insert
+        $stmt = $conn->prepare("INSERT INTO elementen (NaamNL, NaamFR, NaamEN, cat) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("sssi", $NaamNL, $NaamFR, $NaamEN, $cat);
+        if($stmt->execute()){
+            echo "<script>alert('wel');</script>";
+        } else {
+            echo "<script>alert('niet');</script>";
+        }
+    }
+}
 ?>
