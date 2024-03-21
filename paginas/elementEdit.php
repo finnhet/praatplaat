@@ -12,7 +12,6 @@ if (!isset($_SESSION['username'])) {
 <?php
 
 include('../db.php');
-include('uploadElement.php');
 // Fetch categories from 'praatplaten' table
 $query = "SELECT * FROM praatplaten";
 $result = mysqli_query($conn, $query);
@@ -72,7 +71,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <div class="card card-body">
 
 
-      <form action="uploadElement.php" method="POST">
+      <form action="uploadElement.php" method="POST" enctype="multipart/form-data">
 
       <input type="hidden" name="id" value="<?php htmlspecialchars($row['id']); ?>">
       <input class="form-control input-gap" type="text" name="NaamNL" placeholder="Naam NL" aria-label="default input example">
@@ -86,17 +85,19 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten");
       while($c = mysqli_fetch_array($praatplaten)){
         ?>
-      <option value="<?php echo $C ['id']?>"><?php echo $c ['NaamNL'] ?>
+      <option value="<?php echo $c['ID_Platen'];?>"><?php echo $c['NLnaam'];?>
       </option>
   <?php } ?>
 </select>
 
+    <label for="foto" class="form-label">Voeg een element toe.</label>
+    <input class="form-control" type="file" name="foto" id="foto">
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['foto']); ?>">
+
+    <input type="submit" name="uploadEle" value="Upload Element">
 
 
-      <label for="formFile" class="form-label">Voeg een element toe.</label>
-      <input class="form-control" type="file" id="formFile">
-
-      <button class="btn btn-dark" name="uploadEle" type="submit">Toevoegen</button>
+      <button class="btn btn-dark" type="submit" name="uploadEle" value="Upload Element">Toevoegen</button>
 
 
     
