@@ -3,7 +3,7 @@
 include('../db.php');
 
 
-if (isset($_POST['uploadElement.php'])) {
+if (isset($_POST['uploadEle'])) {
     // Check if file is uploaded without errors
     if (isset($_FILES['Foto']) && $_FILES['Foto']['error'] === UPLOAD_ERR_OK) {
         // File details
@@ -26,7 +26,7 @@ if (isset($_POST['uploadElement.php'])) {
 
             if ($stmt->execute()) {
                 // Redirect only if the query was successful
-                header('Location: elementedit.php');
+                header('Location: elementEdit.php');
                 exit(0);
             } else {
                 echo "Error: " . $stmt->error;
