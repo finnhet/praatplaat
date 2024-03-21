@@ -162,9 +162,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         // Authentication successful
         echo "<script>alert('Login successful!');</script>";
-        // Redirect to a logged-in page or perform other actions
+        header('Location: praatplaat.php');
     } else {
         // Authentication failed
+        header('Location: login.php');
         echo "<script>alert('Invalid username or password.');</script>";
     }
 }
