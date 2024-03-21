@@ -112,7 +112,7 @@ body {
 <body>
 
 <?php
-session_start();
+
 
 if(isset($_GET['logout'])) {
     $_SESSION = array();
