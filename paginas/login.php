@@ -1,3 +1,47 @@
+<?php
+// Start session
+session_start();
+
+// Database credentials
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "praatplaat";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // SQL query to fetch user from database
+    $sql = "SELECT id FROM gebruikers WHERE Naam='$username' AND Wachtwoord='$password'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Authentication successful
+        // Set session variables
+        $_SESSION['username'] = $username;
+        // Redirect to dashboard
+        header('Location: praatplaat.php');
+        exit();
+    } else {
+        // Authentication failed
+        echo "<script>alert('Invalid username or password.');</script>";
+    }
+}
+
+// Close connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,9 +164,6 @@
     </style>
 </head>
 <body>
-
-
-
 <div class="login-container">
     <h2>Login</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -130,48 +171,7 @@
         <input type="password" name="password" placeholder="Password" required><br>
         <input type="submit" value="Login">
     </form>
-  
 </div>
-
 <a href="index.php" class="back-button">terug</a>
-
-<?php
-// Database credentials
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "praatplaat";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // SQL query to fetch user from database
-    $sql = "SELECT id FROM gebruikers WHERE Naam='$username' AND Wachtwoord='$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Authentication successful
-        echo "<script>alert('Login successful!');</script>";
-        header('Location: praatplaat.php');
-    } else {
-        // Authentication failed
-        header('Location: login.php');
-        echo "<script>alert('Invalid username or password.');</script>";
-    }
-}
-
-// Close connection
-$conn->close();
-?>
-
 </body>
+</html>

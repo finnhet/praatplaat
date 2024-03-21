@@ -18,6 +18,7 @@
         .container {
             width: 80%;
             margin: 20px auto;
+            margin-top: 100px ;
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
@@ -28,7 +29,7 @@
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: white;
         }
         p {
             line-height: 1.6;
