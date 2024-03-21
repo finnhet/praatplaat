@@ -71,12 +71,20 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       
       <select class="form-select input-gap" name="cat" aria-label="Default select example">
   <option selected>Selecteer een categorie</option>
+<<<<<<< Updated upstream:paginas/elementEdit.php
   <?php foreach ($praatplaten as $praatplaat): ?>
       <option value="<?php echo htmlspecialchars($praatplaat['id']); ?>"
         <?php if ($praatplaat['id']) echo 'selected'; ?>>
         <?php echo htmlspecialchars($praatplaat['NaamNL']); ?>
+=======
+  <?php 
+      $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten");
+      while($c = mysqli_fetch_array($praatplaten)){
+        ?>
+      <option value="<?php echo $C ['id']?>"><?php echo $c ['NaamNL'] ?>
+>>>>>>> Stashed changes:elementEdit.php
       </option>
-  <?php endforeach; ?>
+  <?php } ?>
 </select>
 
 
