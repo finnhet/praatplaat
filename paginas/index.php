@@ -41,7 +41,8 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
         }
  
         .board img {
@@ -58,6 +59,14 @@
         .board p {
             margin: 5px 0;
             font-size: 14px;
+        }
+        .board:hover {
+            transform: translateY(-4px);
+        }
+
+        .board a {
+            color: inherit;
+            text-decoration-line: none;
         }
     </style>
 </head>
