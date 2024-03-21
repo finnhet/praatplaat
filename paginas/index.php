@@ -91,7 +91,7 @@
             echo "Geen items gevonden.";
         }
 
-        // Close the database connection
+       
         $conn->close();
         ?>
     </div>

@@ -1,19 +1,13 @@
 <?php
 
-include('extra\database.con.php');
-
-$conn = new mysqli($servername, $db_username, $db_password, $dbname);
-
-$query = "SELECT * FROM elementen ";
-$result = mysqli_query($conn, $query);
-$data = $result->fetch_all(MYSQLI_ASSOC);
-
+include('../db.php');
+include('uploadElement.php');
+// Fetch categories from 'praatplaten' table
 $query = "SELECT * FROM praatplaten";
 $result = mysqli_query($conn, $query);
-$data = $result->fetch_all(MYSQLI_ASSOC);
-
-
+$praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +73,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
   <option selected>Selecteer een categorie</option>
   <?php foreach ($praatplaten as $praatplaat): ?>
       <option value="<?php echo htmlspecialchars($praatplaat['id']); ?>"
-        <?php if ($praatplaat['id'] == $elementCatId) echo 'selected'; ?>>
+        <?php if ($praatplaat['id']) echo 'selected'; ?>>
         <?php echo htmlspecialchars($praatplaat['NaamNL']); ?>
       </option>
   <?php endforeach; ?>
