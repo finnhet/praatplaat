@@ -172,6 +172,6 @@ $conn->close();
         <input type="submit" value="Login">
     </form>
 </div>
-<a href="index.php" class="back-button">terug</a>
+<a href="index.php" class="back-button">Terug</a>
 </body>
 </html>

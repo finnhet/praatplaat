@@ -123,7 +123,7 @@ body {
     <nav class="admin-nav">
         <ul>
            
-            <li><a href="login.php">Login      </a></li>
+            <li><a href="login.php">Login</a></li>
         </ul>
     </nav>
 </header>
