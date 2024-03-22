@@ -125,7 +125,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <label for="formFile" class="form-label">Voeg een element toe.</label>
       <input class="form-control" type="file" id="formFile">
 
-      <button class="btn btn-be btn-dark" type="submit">bewerken</button>
+      <button class="btn btn-be btn-dark" type="submit">Bewerken</button>
 
 
 
