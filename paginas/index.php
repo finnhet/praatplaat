@@ -56,7 +56,7 @@ if (isset($_SESSION['username'])) {
         }
  
         .board img {
-            width: 200px;
+            width: 178px;
             height: 178px;
             border-radius: 5px;
         }
