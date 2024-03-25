@@ -86,7 +86,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten ");
       while($c = mysqli_fetch_array($praatplaten)){
         ?>
-      <option value="<?php echo $c['id'];?>"><?php echo $c['NaamNL'];?>
+      <option value="<?php echo $c['ID_Platen'];?>"><?php echo $c['NLnaam'];?>
       </option>
        <?php } ?>
       </select>
@@ -96,7 +96,6 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['Foto']); ?>">
 
     <button class="btn btn-dark" type="submit" name="uploadEle" value="Upload Element">Toevoegen</button>
-
       </form>
     
       </div>
@@ -108,30 +107,39 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <div class="card card-body">
 
         
-
-<form action="aj.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-    <select class="form-select input-gap" name="elementID" aria-label="Default select example">
+      <form action="aj.php" method="POST" enctype="multipart/form-data">
+      <select class="form-select input-gap" value="element_id" name="element_id" aria-label="Default select example">
         <option selected>Selecteer een element</option>
-        <?php 
-        $praatplaten = mysqli_query($conn, "SELECT * FROM elementen");
-        while($c = mysqli_fetch_array($praatplaten)){
-            echo '<option value="'.$c['id'].'">'.$c['NaamNL'].'</option>';
-        } ?>
+                <?php
+                    include '../db.php';
+                    $sql = "SELECT id, NaamNL FROM elementen";
+                    $result = $conn->query($sql);
+      
+                    if (!$result) {                    
+                    echo "Error bij het ophalen van praatplaten: " . $conn->error;
+                    } else {         
+                    if ($result->num_rows > 0) {               
+                    while ($row = $result->fetch_assoc()) {                  
+                    echo "<option value='" . $row["id"] . "'>" . $row["NaamNL"] . "</option>";
+                    }
+                    } else {                            
+                    echo "<option disabled>Geen praatplaten gevonden</option>";
+                  }
+                }
+              ?>
     </select>
 
-    <input type="hidden" name="id">
-    <input class="form-control input-gap" type="text" name="NaamNL" placeholder="Nieuwe Naam NL" aria-label="default input example">
-    <input class="form-control input-gap" type="text" name="NaamFR" placeholder="Nieuwe Naam FR" aria-label="default input example">
-    <input class="form-control input-gap" type="text" name="NaamEN" placeholder="Nieuwe Naam EN" aria-label="default input example">
+    <input class="form-control input-gap" type="text" name="naam_NL" placeholder="Nieuwe Naam NL" aria-label="default input example">
+    <input class="form-control input-gap" type="text" name="naam_FR" placeholder="Nieuwe Naam FR" aria-label="default input example">
+    <input class="form-control input-gap" type="text" name="naam_EN" placeholder="Nieuwe Naam EN" aria-label="default input example">
 
     <label for="Foto" class="form-label">Voeg een element toe.</label>
     <input class="form-control" type="file" name="Foto" id="Foto" accept=".jpg, .jpeg, .png">
 
-    <button class="btn btn-dark" type="submit" name="UpdateEle" value="Update Element">Toevoegen</button>
-</form>
+    <button class="btn btn-dark" type="submit" id="UpdateEle" name="UpdateEle" value="UpdateEle">Toevoegen</button>
 
 
-
+      </form>
 
       </div>
     </div>
@@ -169,10 +177,11 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </button> </td>
       </tr>
     </tbody>
-      </form>
     </table>
 <?php }} ?>
       
+</form>
+
       </div>
     </div>
   </div>
