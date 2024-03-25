@@ -65,69 +65,75 @@ body {
 }
 
 .username {
-    font-size: 1.2rem; /* Increased font size */
+    font-size: 1.2rem;
 }
 
-/* Add some padding to the body to prevent content from being obscured by the fixed header */
 body {
-    padding-top: 6rem; /* Adjust this value based on the height of your header */
+    padding-top: 6rem;
 }
 
 @media screen and (max-width: 768px) {
     .admin-header {
-        padding: 1rem; /* Adjusted padding for smaller screens */
+        padding: 1rem;
     }
 
     .brand h1 {
-        font-size: 1.5rem; /* Adjusted font size for smaller screens */
+        font-size: 1.5rem;
     }
 
     .admin-nav ul li {
-        margin-right: 1rem; /* Adjusted margin for smaller screens */
+        margin-right: 1rem;
     }
 
     .admin-nav ul li a {
-        font-size: 1rem; /* Adjusted font size for smaller screens */
+        font-size: 1rem;
     }
 
     .avatar {
-        width: 3rem; /* Adjusted avatar size for smaller screens */
-        height: 3rem; /* Adjusted avatar size for smaller screens */
+        width: 3rem;
+        height: 3rem;
     }
 
     .username {
-        font-size: 1rem; /* Adjusted font size for smaller screens */
+        font-size: 1rem;
     }
 
     body {
-        padding-top: 5rem; /* Adjusted padding for smaller screens */
+        padding-top: 5rem;
     }
 }
 
 .ontlinken { 
-    
-            color: inherit;
-            text-decoration-line: none;
-        
+    color: inherit;
+    text-decoration-line: none;
 }
 </style>
 </head>
 <body>
 
+<?php
+
+
+if(isset($_GET['logout'])) {
+    $_SESSION = array();
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <header class="admin-header">
     <div class="brand">
-    <h1> <a class="ontlinken" href="../paginas/index.php">Praatplaat</a> </h1>
+        <h1><a class="ontlinken" href="../paginas/index.php">Praatplaat</a></h1>
     </div>
     <nav class="admin-nav">
         <ul>
             <li><a href="../paginas/praatplaat.php">Praatplaten</a></li>
-            <li><a href="../elementEdit.php">Elementen</a></li>
-            <li><a href="#">Uitlog</a></li>
+            <li><a href="../paginas/elementEdit.php">Elementen</a></li>
+            <li><a class="ontlinken" href="?logout=true">Uitlog</a></li>
         </ul>
     </nav>
 </header>
-
-<!-- Add your page content here -->
 
 </body>
 </html>
