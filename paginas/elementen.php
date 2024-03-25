@@ -78,7 +78,7 @@
                         // Display the element information
                         echo "<div class='col-md-4'>";
                         echo "<div class='board'>";
-                        echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "'>";
+                        echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
                         echo "<div class='board-content'>";
                         echo "<h2>" . $row['NaamNL'] . "</h2>";
                         echo "<p>" . $row['NaamEN'] . "</p>";
