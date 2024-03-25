@@ -60,7 +60,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <div class="card card-body">
 
 
-      <form action="uploadElement.php" method="POST" enctype="multipart/form-data">
+      <form action="uploadElement.php" method="POST" autocomplete="off" enctype="multipart/form-data">
 
       <input type="hidden" name="id" value="<?php htmlspecialchars($row['id']); ?>">
       <input class="form-control input-gap" type="text" name="NaamNL" placeholder="Naam NL" aria-label="default input example">
@@ -69,26 +69,23 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
       
       <select class="form-select input-gap" name="cat" aria-label="Default select example">
-  <option selected>Selecteer een categorie</option>
-  <?php 
-      $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten");
+      <option selected>Selecteer een categorie</option>
+      <?php 
+      $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten ");
       while($c = mysqli_fetch_array($praatplaten)){
         ?>
       <option value="<?php echo $c['ID_Platen'];?>"><?php echo $c['NLnaam'];?>
       </option>
-  <?php } ?>
-</select>
+       <?php } ?>
+      </select>
 
-    <label for="foto" class="form-label">Voeg een element toe.</label>
-    <input class="form-control" type="file" name="foto" id="foto">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['foto']); ?>">
+    <label for="Foto" class="form-label">Voeg een element toe.</label>
+    <input class="form-control" type="file" name="Foto" id="Foto" accept=".jpg, .jpeg, .png">
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['Foto']); ?>">
 
-    <input type="submit" name="uploadEle" value="Upload Element">
+    <button class="btn btn-dark" type="submit" name="uploadEle" value="Upload Element">Toevoegen</button>
 
-
-      <button class="btn btn-dark" type="submit" name="uploadEle" value="Upload Element">Toevoegen</button>
-
-
+      </form>
     
       </div>
     </div>
@@ -98,22 +95,29 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class="collapse multi-collapse" id="multiCollapseExample2">
       <div class="card card-body">
 
+        
 
-      <select class="form-select input-gap" aria-label="Default select example">
-      <option selected>Selecteer een element</option>
-      <option value="1">brood</option>
-      <option value="2">ei</option>
-      <option value="3">kaas</option>
-      </select>
+<form action="aj.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <select class="form-select input-gap" name="elementID" aria-label="Default select example">
+        <option selected>Selecteer een element</option>
+        <?php 
+        $praatplaten = mysqli_query($conn, "SELECT * FROM elementen");
+        while($c = mysqli_fetch_array($praatplaten)){
+            echo '<option value="'.$c['id'].'">'.$c['NaamNL'].'</option>';
+        } ?>
+    </select>
 
-      <input class="form-control input-gap" type="text" placeholder="Nieuwe Naam NL" aria-label="default input example">
-      <input class="form-control input-gap" type="text" placeholder="Nieuwe Naam FR" aria-label="default input example">
-      <input class="form-control input-gap" type="text" placeholder="Nieuwe Naam EN" aria-label="default input example">
+    <input type="hidden" name="id">
+    <input class="form-control input-gap" type="text" name="NaamNL" placeholder="Nieuwe Naam NL" aria-label="default input example">
+    <input class="form-control input-gap" type="text" name="NaamFR" placeholder="Nieuwe Naam FR" aria-label="default input example">
+    <input class="form-control input-gap" type="text" name="NaamEN" placeholder="Nieuwe Naam EN" aria-label="default input example">
 
-      <label for="formFile" class="form-label">Voeg een element toe.</label>
-      <input class="form-control" type="file" id="formFile">
+    <label for="Foto" class="form-label">Voeg een element toe.</label>
+    <input class="form-control" type="file" name="Foto" id="Foto" accept=".jpg, .jpeg, .png">
 
-      <button class="btn btn-be btn-dark" type="submit">bewerken</button>
+    <button class="btn btn-dark" type="submit" name="UpdateEle" value="Update Element">Toevoegen</button>
+</form>
+
 
 
 
