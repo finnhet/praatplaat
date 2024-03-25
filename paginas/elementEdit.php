@@ -86,7 +86,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       $praatplaten = mysqli_query($conn, "SELECT * FROM praatplaten ");
       while($c = mysqli_fetch_array($praatplaten)){
         ?>
-      <option value="<?php echo $c['ID_Platen'];?>"><?php echo $c['NLnaam'];?>
+      <option value="<?php echo $c['id'];?>"><?php echo $c['NaamNL'];?>
       </option>
        <?php } ?>
       </select>
