@@ -45,7 +45,7 @@ if (isset($_SESSION['username'])) {
             color: #666;
         }
     
-        /* CSS for the board layout */
+        
         .board {
             width: 200px;
             border: 1px solid #ccc;
