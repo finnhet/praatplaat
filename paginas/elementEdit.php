@@ -1,12 +1,11 @@
 <?php
-// Start session
-session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    // If not logged in, redirect to the login page
-    header("Location: login.php");
-    exit();
+
+// Include the appropriate header based on session status
+if (isset($_SESSION['username'])) {
+    include '../extra/adminheader.php'; // Include admin header if session started
+} else {
+    include '../extra/header.php'; // Include regular header if session hasn't started
 }
 ?>
 <?php
