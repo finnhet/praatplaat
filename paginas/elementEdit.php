@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {

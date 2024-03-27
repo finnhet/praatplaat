@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
@@ -15,9 +15,8 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elementen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <?php include '../extra/header.php'; ?>  
     <style>
-       body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -43,7 +42,7 @@ if (isset($_SESSION['username'])) {
             line-height: 1.6;
             color: #666;
         }
-    
+
         /* CSS for the board layout */
         .board {
             width: 200px;
@@ -52,19 +51,20 @@ if (isset($_SESSION['username'])) {
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
+            cursor: pointer; /* Add cursor pointer */
         }
- 
+
         .board img {
             width: 178px;
             height: 178px;
             border-radius: 5px;
         }
- 
+
         .board h2 {
             margin-top: 0;
             font-size: 18px;
         }
- 
+
         .board p {
             margin: 5px 0;
             font-size: 14px;
@@ -76,6 +76,53 @@ if (isset($_SESSION['username'])) {
         .board a {
             color: inherit;
             text-decoration-line: none;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 9999; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #f1f1f1;
+            font-size: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -100,7 +147,7 @@ if (isset($_SESSION['username'])) {
                     while ($row = $result->fetch_assoc()) {
                         // Display the element information
                         echo "<div class='col-md-4'>";
-                        echo "<div class='board'>";
+                        echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
                         echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
                         echo "<div class='board-content'>";
                         echo "<h2>" . $row['NaamNL'] . "</h2>";
@@ -123,5 +170,38 @@ if (isset($_SESSION['username'])) {
             ?>
         </div> <!-- .row -->
     </div> <!-- .container -->
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="">
+            <p id="modalNameNL"></p>
+            <p id="modalNameEN"></p>
+            <p id="modalNameFR"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the modal with larger image
+        function openModal(imageSrc, naamNL, naamFR, naamEN) {
+            var modal = document.getElementById('myModal');
+            var modalImg = document.getElementById("modalImg");
+            var modalNameNL = document.getElementById("modalNameNL");
+            var modalNameEN = document.getElementById("modalNameEN");
+            var modalNameFR = document.getElementById("modalNameFR");
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+            modalNameNL.textContent = "Nederlands: " + naamNL;
+            modalNameEN.textContent = "Engels: " + naamEN;
+            modalNameFR.textContent = "Fries: " + naamFR;
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+    </script>
 </body>
 </html>
