@@ -80,7 +80,7 @@ if (isset($_SESSION['username'])) {
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="row">
             <?php
             include '../db.php'; // Include your database connection file
