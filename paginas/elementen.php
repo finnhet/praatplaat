@@ -24,15 +24,14 @@ if (isset($_SESSION['username'])) {
         }
         .container {
             width: 80%;
-            margin: 20px auto;
-            margin-top: 100px ;
+            margin: 120px auto 20px; /* Added margin-top to move the container down */
             background-color: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-gap: 20px;
+            gap: 20px; /* Updated to 'gap' */
         }
         h1 {
             text-align: center;
@@ -55,8 +54,8 @@ if (isset($_SESSION['username'])) {
         }
 
         .board img {
-            width: 178px;
-            height: 178px;
+            width: 100%; /* Adjusted to fill the container */
+            height: auto; /* Maintain aspect ratio */
             border-radius: 5px;
         }
 
@@ -69,6 +68,7 @@ if (isset($_SESSION['username'])) {
             margin: 5px 0;
             font-size: 14px;
         }
+
         .board:hover {
             transform: translateY(-4px);
         }
@@ -124,84 +124,115 @@ if (isset($_SESSION['username'])) {
             height: auto;
             border-radius: 5px;
         }
+
+        .speak-button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .speak-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-        <div class="row">
-            <?php
-            include '../db.php'; // Include your database connection file
+    <?php
+    include '../db.php'; // Include your database connection file
 
-            // Check if the ID parameter is set in the URL
-            if(isset($_GET['id'])) {
-                // Get the ID from the URL parameter
-                $id = $_GET['id'];
+    // Check if the ID parameter is set in the URL
+    if(isset($_GET['id'])) {
+        // Get the ID from the URL parameter
+        $id = $_GET['id'];
 
-                // Select data from the "elementen" table where the value of cat matches the ID from praatplaten
-                $sql = "SELECT * FROM elementen WHERE cat = $id";
-                $result = $conn->query($sql);
+        // Select data from the "elementen" table where the value of cat matches the ID from praatplaten
+        $sql = "SELECT * FROM elementen WHERE cat = $id";
+        $result = $conn->query($sql);
 
-                // Check if there are any rows in the result
-                if ($result->num_rows > 0) {
-                    // Output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        // Display the element information
-                        echo "<div class='col-md-4'>";
-                        echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
-                        echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
-                        echo "<div class='board-content'>";
-                        echo "<h2>" . $row['NaamNL'] . "</h2>";
-                        echo "<p>" . $row['NaamEN'] . "</p>";
-                        echo "<p>" . $row['NaamFR'] . "</p>";
-                        echo "</div>"; // .board-content
-                        echo "</div>"; // .board
-                        echo "</div>"; // .col-md-4
-                    }
-                } else {
-                    echo "Geen items gevonden.";
-                }
-            } else {
-                // If the ID parameter is not set, display an error message
-                echo "Geen ID gevonden.";
+        // Check if there are any rows in the result
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            while ($row = $result->fetch_assoc()) {
+                // Display the element information
+                echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
+                echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
+                echo "<div class='board-content'>";
+                echo "<h2>" . $row['NaamNL'] . "</h2>";
+                echo "<p>" . $row['NaamEN'] . "</p>";
+                echo "<p>" . $row['NaamFR'] . "</p>";
+                echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"nl-NL\")'>Nederlands</button>";
+                echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"en-US\")'>Engels</button>";
+                echo "</div>"; // .board-content
+                echo "</div>"; // .board
             }
+        } else {
+            echo "Geen items gevonden.";
+        }
+    } else {
+        // If the ID parameter is not set, display an error message
+        echo "Geen ID gevonden.";
+    }
 
-            // Close the database connection
-            $conn->close();
-            ?>
-        </div> <!-- .row -->
-    </div> <!-- .container -->
+    // Close the database connection
+    $conn->close();
+    ?>
+</div> <!-- .container -->
 
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div class="modal-content">
-            <img id="modalImg" src="" alt="">
-            <p id="modalNameNL"></p>
-            <p id="modalNameEN"></p>
-            <p id="modalNameFR"></p>
-        </div>
+<!-- Modal -->
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <img id="modalImg" src="" alt="">
+        <p id="modalNameNL"></p>
+        <p id="modalNameEN"></p>
+        <p id="modalNameFR"></p>
+        <button class="speak-button" onclick="speakText(document.getElementById('modalNameNL').textContent.substring(12), document.getElementById('modalNameFR').textContent.substring(7), document.getElementById('modalNameEN').textContent.substring(8), 'nl-NL')">Speak Dutch</button>
+        <button class="speak-button" onclick="speakText(document.getElementById('modalNameNL').textContent.substring(12), document.getElementById('modalNameFR').textContent.substring(7), document.getElementById('modalNameEN').textContent.substring(8), 'en-US')">Speak English</button>
     </div>
+</div>
 
-    <script>
-        // Function to open the modal with larger image
-        function openModal(imageSrc, naamNL, naamFR, naamEN) {
-            var modal = document.getElementById('myModal');
-            var modalImg = document.getElementById("modalImg");
-            var modalNameNL = document.getElementById("modalNameNL");
-            var modalNameEN = document.getElementById("modalNameEN");
-            var modalNameFR = document.getElementById("modalNameFR");
-            modal.style.display = "block";
-            modalImg.src = imageSrc;
-            modalNameNL.textContent = "Nederlands: " + naamNL;
-            modalNameEN.textContent = "Engels: " + naamEN;
-            modalNameFR.textContent = "Fries: " + naamFR;
-        }
 
-        // Function to close the modal
-        function closeModal() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = "none";
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=N5rOBfS7"></script>
+<script>
+    function speakText(nlText, frText, enText, lang) {
+        switch(lang) {
+            case 'nl-NL':
+                responsiveVoice.speak(nlText, 'Dutch Female');
+                break;
+            case 'fr-FR':
+                responsiveVoice.speak(frText, 'Frisian Male');
+                break;
+            default:
+                responsiveVoice.speak(enText, 'UK English Male');
         }
-    </script>
+    }
+
+    // Function to open the modal with larger image
+    function openModal(imageSrc, naamNL, naamFR, naamEN) {
+        var modal = document.getElementById('myModal');
+        var modalImg = document.getElementById("modalImg");
+        var modalNameNL = document.getElementById("modalNameNL");
+        var modalNameEN = document.getElementById("modalNameEN");
+        var modalNameFR = document.getElementById("modalNameFR");
+        modal.style.display = "block";
+        modalImg.src = imageSrc;
+        modalNameNL.textContent = "Nederlands: " + naamNL;
+        modalNameEN.textContent = "Engels: " + naamEN;
+        modalNameFR.textContent = "Fries: " + naamFR;
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = "none";
+    }
+</script>
 </body>
 </html>
