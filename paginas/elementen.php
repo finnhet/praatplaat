@@ -54,10 +54,12 @@ if (isset($_SESSION['username'])) {
         }
 
         .board img {
-            width: 100%; /* Adjusted to fill the container */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 5px;
-        }
+    max-width: 100%;
+    max-height: 200px; /* Adjust the maximum height as needed */
+    width: auto;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px;
+}
 
         .board h2 {
             margin-top: 0;
