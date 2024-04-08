@@ -1,4 +1,5 @@
 <?php
+// Start session
 session_start();
 
 // Include the appropriate header based on session status
@@ -15,83 +16,70 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elementen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?php include '../extra/header.php'; ?>
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
         }
         .container {
-            width: 80%;
-            margin: 120px auto 20px; /* Added margin-top to move the container down */
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px; /* Updated to 'gap' */
+            padding-top: 100px; /* Adjust as needed */
         }
-        h1 {
-            text-align: center;
-            color: white;
-        }
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-    
-        
         .board {
-            width: 200px;
+            width: 100%;
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
+            height: 100%; /* Make sure all cards have the same height */
+            display: flex;
+            flex-direction: column;
         }
- 
         .board img {
-    max-width: 100%;
-    max-height: 200px; /* Adjust the maximum height as needed */
-    width: auto;
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 5px;
-}
-
+            max-width: 100%;
+            max-height: 150px; 
+            width: auto;
+            height: auto; 
+            border-radius: 5px;
+            align-self: center; 
+        }
+        .board-content {
+            flex-grow: 1; /* Allow the content to grow within the card */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space evenly between elements */
+        }
         .board h2 {
             margin-top: 0;
             font-size: 18px;
+            text-align: center; /* Center the heading */
         }
- 
         .board p {
             margin: 5px 0;
             font-size: 14px;
+            text-align: center; /* Center the paragraph */
         }
-
         .board:hover {
             transform: translateY(-4px);
         }
-
         .board a {
             color: inherit;
             text-decoration-line: none;
         }
-
-        /* Modal styles */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
-            z-index: 9999; /* Sit on top */
+            z-index: 9999;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
         }
-
         .modal-content {
             margin: auto;
             display: block;
@@ -102,7 +90,6 @@ if (isset($_SESSION['username'])) {
             background-color: #fff;
             border-radius: 5px;
         }
-
         .close {
             position: absolute;
             top: 15px;
@@ -113,19 +100,16 @@ if (isset($_SESSION['username'])) {
             transition: 0.3s;
             cursor: pointer;
         }
-
         .close:hover,
         .close:focus {
             color: #bbb;
             text-decoration: none;
         }
-
         .modal-content img {
             width: 100%;
             height: auto;
             border-radius: 5px;
         }
-
         .speak-button {
             padding: 8px 16px;
             margin-top: 10px;
@@ -135,8 +119,8 @@ if (isset($_SESSION['username'])) {
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            align-self: center; /* Center the buttons horizontally */
         }
-
         .speak-button:hover {
             background-color: #0056b3;
         }
@@ -144,49 +128,42 @@ if (isset($_SESSION['username'])) {
 </head>
 <body>
 <div class="container">
-    <?php
-    include '../db.php'; // Include your database connection file
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <?php
+        include '../db.php'; // Include your database connection file
 
-    // Check if the ID parameter is set in the URL
-    if(isset($_GET['id'])) {
-        // Get the ID from the URL parameter
-        $id = $_GET['id'];
+        if(isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $sql = "SELECT * FROM elementen WHERE cat = $id";
+            $result = $conn->query($sql);
 
-        // Select data from the "elementen" table where the value of cat matches the ID from praatplaten
-        $sql = "SELECT * FROM elementen WHERE cat = $id";
-        $result = $conn->query($sql);
-
-        // Check if there are any rows in the result
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-                // Display the element information
-                echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
-                echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
-                echo "<div class='board-content'>";
-                echo "<h2>" . $row['NaamNL'] . "</h2>";
-                echo "<p>" . $row['NaamEN'] . "</p>";
-                echo "<p>" . $row['NaamFR'] . "</p>";
-                echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"nl-NL\")'>Nederlands</button>";
-                echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"en-US\")'>Engels</button>";
-                echo "</div>"; // .board-content
-                echo "</div>"; // .board
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='col'>";
+                    echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
+                    echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
+                    echo "<div class='board-content'>";
+                    echo "<h2>" . $row['NaamNL'] . "</h2>";
+                    echo "<p>" . $row['NaamEN'] . "</p>";
+                    echo "<p>" . $row['NaamFR'] . "</p>";
+                    echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"nl-NL\")'>Nederlands</button>";
+                    echo "<button class='speak-button' onclick='event.stopPropagation(); speakText(\"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\", \"en-US\")'>Engels</button>";
+                    echo "</div>"; // .board-content
+                    echo "</div>"; // .board
+                    echo "</div>"; // .col
+                }
+            } else {
+                echo "Geen items gevonden.";
             }
         } else {
-            echo "Geen items gevonden.";
+            echo "Geen ID gevonden.";
         }
-    } else {
-        // If the ID parameter is not set, display an error message
-        echo "Geen ID gevonden.";
-    }
 
-    // Close the database connection
-    $conn->close();
-    ?>
+        $conn->close();
+        ?>
+    </div> <!-- .row -->
 </div> <!-- .container -->
 
-<!-- Modal -->
-<!-- Modal -->
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <div class="modal-content">
@@ -198,7 +175,6 @@ if (isset($_SESSION['username'])) {
         <button class="speak-button" onclick="speakText(document.getElementById('modalNameNL').textContent.substring(12), document.getElementById('modalNameFR').textContent.substring(7), document.getElementById('modalNameEN').textContent.substring(8), 'en-US')">Speak English</button>
     </div>
 </div>
-
 
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=N5rOBfS7"></script>
 <script>
@@ -215,7 +191,6 @@ if (isset($_SESSION['username'])) {
         }
     }
 
-    // Function to open the modal with larger image
     function openModal(imageSrc, naamNL, naamFR, naamEN) {
         var modal = document.getElementById('myModal');
         var modalImg = document.getElementById("modalImg");
@@ -229,7 +204,6 @@ if (isset($_SESSION['username'])) {
         modalNameFR.textContent = "Fries: " + naamFR;
     }
 
-    // Function to close the modal
     function closeModal() {
         var modal = document.getElementById('myModal');
         modal.style.display = "none";
@@ -237,3 +211,4 @@ if (isset($_SESSION['username'])) {
 </script>
 </body>
 </html>
+
