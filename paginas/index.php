@@ -28,22 +28,24 @@ if (isset($_SESSION['username'])) {
             margin-top: 100px;
         }
         .board {
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            height: 100%; /* Make sure all cards have the same height */
-            display: flex;
-            flex-direction: column;
-        }
+     width: 75%;
+    border: 1px solid #ccc;
+    xborder-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
         .board img {
             max-width: 100%;
             max-height: 150px; 
             width: auto;
             height: auto; 
-            border-radius: 5px;
             align-self: center;
 
         }
