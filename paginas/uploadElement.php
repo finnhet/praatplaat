@@ -59,7 +59,7 @@ function addelementen($NaamNL, $NaamFR, $NaamEN, $cat, $Foto) {
         echo "Fout bij toevoegen van element: " . $conn->error;
     }
 
-     header("Location: ../paginas/elementEdit.php");   
+     header("Location: elementEdit.php");   
 
     $stmt->close();
     $conn->close();
