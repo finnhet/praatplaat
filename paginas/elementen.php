@@ -16,7 +16,7 @@ if (isset($_SESSION['username'])) {
     <title>Elementen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -42,8 +42,8 @@ if (isset($_SESSION['username'])) {
             line-height: 1.6;
             color: #666;
         }
-
-        /* CSS for the board layout */
+    
+        
         .board {
             width: 200px;
             border: 1px solid #ccc;
@@ -51,20 +51,19 @@ if (isset($_SESSION['username'])) {
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
-            cursor: pointer; /* Add cursor pointer */
         }
-
+ 
         .board img {
             width: 178px;
             height: 178px;
             border-radius: 5px;
         }
-
+ 
         .board h2 {
             margin-top: 0;
             font-size: 18px;
         }
-
+ 
         .board p {
             margin: 5px 0;
             font-size: 14px;
