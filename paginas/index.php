@@ -25,47 +25,32 @@ if (isset($_SESSION['username'])) {
             background-color: #f0f0f0;
         }
         .container {
-            width: 80%;
-            margin: 20px auto;
-            margin-top: 100px ;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 20px;
+            margin-top: 100px;
         }
-        h1 {
-            text-align: center;
-            color: white;
-        }
-        p {
-            line-height: 1.6;
-            color: #666;
-        }
-    
-        
         .board {
-            width: 200px;
+            width: 100%;
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
+            height: 100%; /* Make sure all cards have the same height */
+            display: flex;
+            flex-direction: column;
         }
- 
         .board img {
-            width: 178px;
-            height: 178px;
+            max-width: 100%;
+            max-height: 150px; 
+            width: auto;
+            height: auto; 
             border-radius: 5px;
+            align-self: center;
+
         }
- 
         .board h2 {
             margin-top: 0;
             font-size: 18px;
         }
- 
         .board p {
             margin: 5px 0;
             font-size: 14px;
@@ -73,7 +58,6 @@ if (isset($_SESSION['username'])) {
         .board:hover {
             transform: translateY(-4px);
         }
-
         .board a {
             color: inherit;
             text-decoration-line: none;
@@ -82,37 +66,40 @@ if (isset($_SESSION['username'])) {
 </head>
 <body>
     <div class="container">
-        <?php
-        include '../db.php'; // Include your database connection file
+        <div class="row">
+            <?php
+            include '../db.php'; // Include your database connection file
 
-        // Select data from the "praatplaten" table
-        $sql = "SELECT * FROM praatplaten";
-        $result = $conn->query($sql);
+            // Select data from the "praatplaten" table
+            $sql = "SELECT * FROM praatplaten";
+            $result = $conn->query($sql);
 
-        // Check if there are any rows in the result
-        if ($result->num_rows > 0) {
-            // Output data of each row
-            while ($row = $result->fetch_assoc()) {
-                // Display the photo using an <img> tag with base64 encoded data
-                echo "<div class='board'>";
-                echo "<a href='elementen.php?id=" . $row['id'] . "' class='board-link'>";
-                echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "'>";
-                // Display other information
-                echo "<div class='board-content'>";
-                echo "<h2>" . $row['NaamNL'] . "</h2>";
-                echo "<p>" . $row['NaamEN'] . "</p>";
-                echo "<p>" . $row['NaamFR'] . "</p>";
-                echo "</div>"; // .board-content
-                echo "</a>"; // Close the <a> tag
-                echo "</div>"; // .board
+            // Check if there are any rows in the result
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    // Use Bootstrap grid classes to create columns
+                    echo "<div class='col-sm-6 col-md-3'>"; // For small screens, each column takes up 6 out of 12 grid units. For medium screens and above, each column takes up 3 out of 12 grid units.
+                    echo "<div class='board'>";
+                    echo "<a href='elementen.php?id=" . $row['id'] . "' class='board-link'>";
+                    echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "' class='img-fluid'>"; // Use Bootstrap's responsive image class
+                    // Display other information
+                    echo "<div class='board-content'>";
+                    echo "<h2>" . $row['NaamNL'] . "</h2>";
+                    echo "<p>" . $row['NaamEN'] . "</p>";
+                    echo "<p>" . $row['NaamFR'] . "</p>";
+                    echo "</div>"; // .board-content
+                    echo "</a>"; // Close the <a> tag
+                    echo "</div>"; // .board
+                    echo "</div>"; // .col
+                }
+            } else {
+                echo "Geen items gevonden.";
             }
-        } else {
-            echo "Geen items gevonden.";
-        }
 
-       
-        $conn->close();
-        ?>
+            $conn->close();
+            ?>
+        </div>
     </div>
 </body>
 </html>
