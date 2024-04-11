@@ -1,6 +1,6 @@
 
 <?php
-include '../db.php';
+include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["uploadEle"])) {
 
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["uploadEle"])) {
 }
 
 function addelementen($NaamNL, $NaamFR, $NaamEN, $cat, $Foto) {
-    include '../db.php';
+    include 'db.php';
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -69,7 +69,7 @@ function addelementen($NaamNL, $NaamFR, $NaamEN, $cat, $Foto) {
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["UpdateEle"])) {
-    include '../db.php'; // Make sure this path is correct and the file is properly included
+    include 'db.php'; // Make sure this path is correct and the file is properly included
 
     $element_id = $_POST['element_id'] ?? null;
     $Naam_NL = $_POST['naam_NL'] ?? null; // Make sure to match the case with your form field names
@@ -140,7 +140,7 @@ function updateElement($conn, $element_id, $naam_NL, $naam_FR, $naam_EN, $Foto) 
 
 <?php
 if (isset($_POST['DeleteEle'])) {
-    include '../db.php'; // Ensure database connection is included
+    include 'db.php'; // Ensure database connection is included
 
     $id = $_POST['id'];
 

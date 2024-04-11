@@ -1,16 +1,11 @@
 <?php
 session_start();
 
-// Include the appropriate header based on session status
-if (isset($_SESSION['username'])) {
-    include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
-}
+
 ?>
 <?php
 
-include('../db.php');
+include('db.php');
 // Fetch categories from 'praatplaten' table
 $query = "SELECT * FROM praatplaten";
 $result = mysqli_query($conn, $query);
@@ -19,7 +14,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include '../extra/adminheader.php'; ?>
+<?php include 'extra/adminheader.php'; ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,7 +105,7 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
       <select class="form-select input-gap" value="element_id" name="element_id" aria-label="Default select example">
         <option selected>Selecteer een element</option>
                 <?php
-                    include '../db.php';
+                    include 'db.php';
                     $sql = "SELECT id, NaamNL FROM elementen";
                     $result = $conn->query($sql);
       

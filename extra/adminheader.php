@@ -124,12 +124,12 @@ if(isset($_GET['logout'])) {
 
 <header class="admin-header">
     <div class="brand">
-        <h1><a class="ontlinken" href="../paginas/index.php">Praatplaat</a></h1>
+        <h1><a class="ontlinken" href="index.php">Praatplaat</a></h1>
     </div>
     <nav class="admin-nav">
         <ul>
-            <li><a href="../paginas/praatplaat.php">Praatplaten</a></li>
-            <li><a href="../paginas/elementEdit.php">Elementen</a></li>
+            <li><a href="praatplaat.php">Praatplaten</a></li>
+            <li><a href="elementEdit.php">Elementen</a></li>
             <li><a class="ontlinken" href="?logout=true">Uitlog</a></li>
         </ul>
     </nav>

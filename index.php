@@ -4,9 +4,7 @@ session_start();
 
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
-    include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+    include 'extra/adminheader.php'; // Include admin header if session started
 }
 ?>
 <!DOCTYPE html>
@@ -30,7 +28,7 @@ if (isset($_SESSION['username'])) {
         .board {
      width: 75%;
     border: 1px solid #ccc;
-    xborder-radius: 5px;
+    border-radius: 5px;
     padding: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
@@ -70,7 +68,7 @@ if (isset($_SESSION['username'])) {
     <div class="container">
         <div class="row">
             <?php
-            include '../db.php'; // Include your database connection file
+            include 'db.php'; // Include your database connection file
 
             // Select data from the "praatplaten" table
             $sql = "SELECT * FROM praatplaten";
@@ -84,7 +82,7 @@ if (isset($_SESSION['username'])) {
                     echo "<div class='col-sm-6 col-md-3'>"; // For small screens, each column takes up 6 out of 12 grid units. For medium screens and above, each column takes up 3 out of 12 grid units.
                     echo "<div class='board'>";
                     echo "<a href='elementen.php?id=" . $row['id'] . "' class='board-link'>";
-                    echo "<img src='../fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "' class='img-fluid'>"; // Use Bootstrap's responsive image class
+                    echo "<img src='fotos/" . $row['foto_path'] . "' alt='" . $row['NaamEN'] . "' class='img-fluid'>"; // Use Bootstrap's responsive image class
                     // Display other information
                     echo "<div class='board-content'>";
                     echo "<h2>" . $row['NaamNL'] . "</h2>";

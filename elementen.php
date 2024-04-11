@@ -4,9 +4,7 @@ session_start();
 
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
-    include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+    include 'extra/adminheader.php'; // Include admin header if session started
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +14,7 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elementen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <?php include '../extra/header.php'; ?>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +25,7 @@ if (isset($_SESSION['username'])) {
         .container {
             padding-top: 100px; /* Adjust as needed */
         }
+       
         .board {
             width: 100%;
             border: 1px solid #ccc;
@@ -125,12 +124,13 @@ if (isset($_SESSION['username'])) {
             background-color: #0056b3;
         }
     </style>
-</head>
+</head> 
 <body>
+
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <?php
-        include '../db.php'; // Include your database connection file
+        include 'db.php'; // Include your database connection file
 
         if(isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -140,8 +140,8 @@ if (isset($_SESSION['username'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='col'>";
-                    echo "<div class='board' onclick='openModal(\"../fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
-                    echo "<img src='../fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
+                    echo "<div class='board' onclick='openModal(\"fotos/" . $row['Foto'] . "\", \"" . $row['NaamNL'] . "\", \"" . $row['NaamFR'] . "\", \"" . $row['NaamEN'] . "\")'>";
+                    echo "<img src='fotos/" . $row['Foto'] . "' alt='" . $row['NaamEN'] . "'>";
                     echo "<div class='board-content'>";
                     echo "<h2>" . $row['NaamNL'] . "</h2>";
                     echo "<p>" . $row['NaamEN'] . "</p>";
@@ -161,6 +161,16 @@ if (isset($_SESSION['username'])) {
 
         $conn->close();
         ?>
+         <div class='col'> <!-- TERUG -->
+    <div style="background-color: crimson; color: white" class='board' onclick="window.location.href = 'index.php';">
+        <div class='board-content'>
+            <img src="fotos/arrow.png">
+            <h2>Terug</h2>
+            <h2>Back</h2>
+            <h2>Werom</h2>
+        </div>
+    </div>
+</div>
     </div> <!-- .row -->
 </div> <!-- .container -->
 

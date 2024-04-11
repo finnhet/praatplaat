@@ -20,7 +20,7 @@ if (!isset($_SESSION['username'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <?php include '../extra/adminheader.php'; ?>
+    <?php include 'extra/adminheader.php'; ?>
     <style>
         body {
             margin: 0;
@@ -93,7 +93,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
     <div class="content-wrapper">
-        <?php include '../extra/adminheader.php'; ?>
+        <?php include 'extra/adminheader.php'; ?>
 
         <div class="container">
             <div class="btn-container">
@@ -126,7 +126,7 @@ if (!isset($_SESSION['username'])) {
                                     <select class="form-select input-gap" name="plaatplaat_id" id="plaatplaat_id" aria-label="Default select example">
                                         <option selected>Selecteer een praatplaat</option>
                                         <?php
-                                        include '../db.php';
+                                        include 'db.php';
                                         $sql = "SELECT id, NaamNL FROM praatplaten";
                                         $result = $conn->query($sql);
 
@@ -170,7 +170,7 @@ if (!isset($_SESSION['username'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        include '../db.php';
+                                        include 'db.php';
                                         $sql = "SELECT id, NaamNL FROM praatplaten";
                                         $result = $conn->query($sql);
 
@@ -180,7 +180,7 @@ if (!isset($_SESSION['username'])) {
                                                 echo "<td>" . $row["id"] . "</td>";
                                                 echo "<td>" . $row["NaamNL"] . "</td>";
                                                 echo "<td>";
-                                                echo "<form action='../extra/vwdpraatplaat.php' method='post'>";
+                                                echo "<form action='extra/vwdpraatplaat.php' method='post'>";
                                                 echo "<input type='hidden' name='praatplaat_id' value='" . $row["id"] . "'>";
                                                 echo "<button type='submit' class='btn btn-danger'>Verwijderen</button>";
                                                 echo "</form>";
