@@ -8,12 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_submit"])) {
     $naam_fr = $_POST['naam_fr'];
     $naam_en = $_POST['naam_en'];
 
-// Check if a new photo is uploaded
+   // Check if a new photo is uploaded
 if ($_FILES['foto']['size'] > 0) {
-    $target_dir = "../fotos/"; // Adjusted target directory path
-    $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+    $target_dir = "fotos/"; // Adjusted target directory path
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
 
     $check = getimagesize($_FILES["foto"]["tmp_name"]);
     if ($check !== false) {     
@@ -22,14 +21,18 @@ if ($_FILES['foto']['size'] > 0) {
             echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         } else {
+            // Generate a unique filename to avoid conflicts
+            $foto_name = uniqid() . "." . $imageFileType;
+            $target_file = $target_dir . $foto_name;
+            
             // Check if the target directory exists, if not, create it
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777, true); // Create the directory recursively
             }
             
             if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
-                $foto_name = basename($_FILES["foto"]["name"]);
-                $foto_path = $target_file; // Store the file path in the database
+                // Store the file path in the database
+                $foto_path = "../fotos/" . $foto_name; // Corrected file path
                 addPraatplaat($naam_nl, $naam_fr, $naam_en, $foto_path);
             } else {
                 echo "Sorry, there was an error uploading your file.";

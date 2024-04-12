@@ -99,7 +99,23 @@ if (isset($_SESSION['username'])) {
 
             $conn->close();
             ?>
+             <?php if(isset($_SESSION['username'])): ?> <!-- Only show if logged in -->
+                <div class='col-sm-6 col-md-3'>
+                   <div style="background-color: #32cd32; color: white" class='board'>
+                   <a href="praatplaat.php" class='board-link'>
+                   <img src= "../fotos/plusplus.png" class='img-fluid'>
+                  
+                    <div class='board-content'>
+                    <h2>Nieuw</h2>  
+                    <h2>New</h2>
+                  <h2>Nij</h2>
+                    </div>
+                  </a>
+                    </div>
+                    </div>
+        <?php endif; ?>
         </div>
+        
     </div>
 </body>
 </html>

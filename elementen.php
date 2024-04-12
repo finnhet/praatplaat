@@ -161,16 +161,28 @@ if (isset($_SESSION['username'])) {
 
         $conn->close();
         ?>
-         <div class='col'> <!-- TERUG -->
-    <div style="background-color: crimson; color: white" class='board' onclick="window.location.href = 'index.php';">
-        <div class='board-content'>
-            <img src="fotos/arrow.png">
-            <h2>Terug</h2>
-            <h2>Back</h2>
-            <h2>Werom</h2>
+        <?php if(isset($_SESSION['username'])): ?> <!-- Only show if logged in -->
+        <div class='col'> <!-- ELEMENT TOEVOEG -->
+            <div style="background-color: #32cd32; color: white" class='board' onclick="window.location.href = 'elementEdit.php';">
+                <div class='board-content'>
+                    <img src="fotos/plusplus.png">
+                    <h2>Nieuw</h2>
+                    <h2>New</h2>
+                    <h2>Nij</h2>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        <?php endif; ?>
+        <div class='col'> <!-- TERUG -->
+            <div style="background-color: crimson; color: white" class='board' onclick="window.location.href = 'index.php';">
+                <div class='board-content'>
+                    <img src="fotos/arrow.png">
+                    <h2>Terug</h2>
+                    <h2>Back</h2>
+                    <h2>Werom</h2>
+                </div>
+            </div>
+        </div>
     </div> <!-- .row -->
 </div> <!-- .container -->
 
@@ -221,4 +233,3 @@ if (isset($_SESSION['username'])) {
 </script>
 </body>
 </html>
-

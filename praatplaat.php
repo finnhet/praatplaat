@@ -197,6 +197,11 @@ if (!isset($_SESSION['username'])) {
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <form action="index.php" method="post">
+                        <button type="submit" class="btn btn-dark">Terug</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
