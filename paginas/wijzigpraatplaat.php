@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
     // Get form data
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
 }
 
 function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null, $foto_name = null) {
-    include 'db.php';
+    include '../db.php';
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);

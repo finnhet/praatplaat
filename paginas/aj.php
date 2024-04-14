@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["UpdateEle"])) {
-    include 'db.php'; // Make sure this path is correct and the file is properly included
+    include '../db.php'; // Make sure this path is correct and the file is properly included
 
     $element_id = $_POST['element_id'] ?? null;
     $Naam_NL = $_POST['naam_NL'] ?? null; // Make sure to match the case with your form field names

@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["praatplaat_id"])) {
         echo "Praatplaat succesvol verwijderd.";
 
        
-        header("Location: ../praatplaat.php");
+        header("Location: ../paginas/praatplaat.php");
         exit(); 
     } else {
         

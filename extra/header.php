@@ -118,7 +118,7 @@ body {
 
 <header class="admin-header">
     <div class="brand">
-    <h1> <a class="ontlinken" href="index.php">Praatplaat</a> </h1>
+    <h1> <a class="ontlinken" href="../paginas/index.php">Praatplaat</a> </h1>
     </div>
     <nav class="admin-nav">
         <ul>
