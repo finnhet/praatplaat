@@ -51,7 +51,7 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
     // Prepare the SQL statement
     if ($foto_name) {
         // Concatenate the '../fotos/' prefix with the image name
-        $foto_path = "fotos/" . $foto_name;
+        $foto_path = "../fotos/" . $foto_name;
         $stmt = $conn->prepare("UPDATE praatplaten SET foto_path=? WHERE id=?");
         $stmt->bind_param("si", $foto_path, $id);
     } else {
