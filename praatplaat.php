@@ -199,7 +199,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="col">
                     <form action="index.php" method="post">
-                        <button type="submit" class="btn btn-dark">Terug</button>
+                        <button type="submit" style="background-color: crimson" class="btn btn-dark">Terug</button>
                     </form>
                 </div>
             </div>

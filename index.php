@@ -103,7 +103,7 @@ if (isset($_SESSION['username'])) {
                 <div class='col-sm-6 col-md-3'>
                    <div style="background-color: #32cd32; color: white" class='board'>
                    <a href="praatplaat.php" class='board-link'>
-                   <img src= "../fotos/plusplus.png" class='img-fluid'>
+                   <img src= "fotos/plusplus.png" class='img-fluid'>
                   
                     <div class='board-content'>
                     <h2>Nieuw</h2>  
