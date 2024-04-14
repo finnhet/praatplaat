@@ -4,9 +4,9 @@ session_start();
 
 // Database credentials
 $servername = "localhost";
-$username = "deb85590_p32k1tb";
-$password = "7v5UgRa9DGXdRRtn4tGN";
-$dbname = "deb85590_p32k1tb";
+$username = "root";
+$password = "";
+$dbname = "praatplaat";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

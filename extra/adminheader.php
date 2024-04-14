@@ -22,18 +22,34 @@ if (isset($_POST['logout'])) {
 }
 ?>
 
-<header class="admin-header">
-    <div class="brand">
-        <h1><a class="ontlinken" href="../paginas/index.php">Praatplaat</a></h1>
-    </div>
-    <nav class="admin-nav">
-        <ul>
-            <li><a href="../paginas/praatplaat.php">Praatplaten</a></li>
-            <li><a href="../paginas/elementEdit.php">Elementen</a></li>
-            <li><a class="ontlinken" href="?logout=true">Uitlog</a></li>
-        </ul>
-    </nav>
-</header>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <style>
+        .logout-button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            float: right;
+        }
+        .logout-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header style="position: absolute; top: 0; right: 0;">
+        <form method="post">
+            <button class="logout-button" type="submit" name="logout">Logout</button>
+        </form>
+    </header>
 </body>
 </html>

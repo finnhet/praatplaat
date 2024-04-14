@@ -4,8 +4,7 @@ session_start();
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
     include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+
 }
 ?>
 <?php
@@ -20,12 +19,12 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <?php
 
 
-include 'extra/adminheader.php'; 
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include '../extra/adminheader.php'; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -5,8 +5,7 @@ session_start();
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
     include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +15,7 @@ if (isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elementen</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <?php include '../extra/header.php'; ?>
+ 
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -161,6 +160,28 @@ if (isset($_SESSION['username'])) {
 
         $conn->close();
         ?>
+         <?php if(isset($_SESSION['username'])): ?> <!-- Only show if logged in -->
+        <div class='col'> <!-- ELEMENT TOEVOEG -->
+            <div style="background-color: #32cd32; color: white" class='board' onclick="window.location.href = 'elementEdit.php';">
+                <div class='board-content'>
+                    <img src="../fotos/plusplus.png">
+                    <h2>Nieuw</h2>
+                    <h2>New</h2>
+                    <h2>Nij</h2>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class='col'> <!-- TERUG -->
+            <div style="background-color: crimson; color: white" class='board' onclick="window.location.href = 'index.php';">
+                <div class='board-content'>
+                    <img src="../fotos/arrow.png">
+                    <h2>Terug</h2>
+                    <h2>Back</h2>
+                    <h2>Werom</h2>
+                </div>
+            </div>
+        </div>
     </div> <!-- .row -->
 </div> <!-- .container -->
 

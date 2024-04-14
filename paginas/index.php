@@ -5,8 +5,7 @@ session_start();
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
     include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+
 }
 ?>
 <!DOCTYPE html>
@@ -105,7 +104,7 @@ if (isset($_SESSION['username'])) {
                 <div class='col-sm-6 col-md-3'>
                    <div style="background-color: #32cd32; color: white" class='board'>
                    <a href="praatplaat.php" class='board-link'>
-                   <img src= "fotos/plusplus.png" class='img-fluid'>
+                   <img src= "../fotos/plusplus.png" class='img-fluid'>
                   
                     <div class='board-content'>
                     <h2>Nieuw</h2>  
