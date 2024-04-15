@@ -93,7 +93,7 @@ if (isset($_SESSION['username'])) {
 
         .modal-content {
             margin: auto;
-            display: block;
+            display: flex;
             width: 80%;
             max-width: 700px;
             position: relative;
@@ -107,7 +107,7 @@ if (isset($_SESSION['username'])) {
             top: 15px;
             right: 15px;
             color: #f1f1f1;
-            font-size: 20px;
+            font-size: 33px;
             font-weight: bold;
             transition: 0.3s;
             cursor: pointer;
