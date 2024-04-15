@@ -4,8 +4,7 @@ session_start();
 // Include the appropriate header based on session status
 if (isset($_SESSION['username'])) {
     include '../extra/adminheader.php'; // Include admin header if session started
-} else {
-    include '../extra/header.php'; // Include regular header if session hasn't started
+
 }
 ?>
 <?php
@@ -17,9 +16,15 @@ $result = mysqli_query($conn, $query);
 $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
+<?php
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-<?php include '../extra/adminheader.php'; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,43 +32,63 @@ $praatplaten = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <style class="css">
-    body {
-  margin: 0;
-  padding: 0;   
-  font-family: Arial, sans-serif;
-  background-color: #f3f3f3;
-}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;   
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+        }
 
-.container {
-  display: table;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  margin-top: 16rem;
-}
+        .container {
+            display: table;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            margin-top: 16rem;
+        }
 
-.gap-1 {
-  gap: 16.5rem !important;
-}
+        .gap-1 {
+            gap: 16.5rem !important;
+        }
 
-.input-gap {
-  margin-bottom: 20px; /* Adjust this value to increase or decrease the gap */
-}
+        .input-gap {
+            margin-bottom: 20px; /* Adjust this value to increase or decrease the gap */
+        }
 
-.btn-dark{
-    margin-top: 20px;
-}
+        .btn-dark{
+            margin-top: 20px;
+        }
 
+        /* Style for the "terug" button */
+        .terug-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #dc3545; /* Red background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration-line: none;
+        }
+
+        .terug-button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
-<div class="container text-center">
-<p class="d-inline-flex gap-1">
-  <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Element Toevoegen</a>
-  <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Element Wijzigen</button>
-  <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Element Verwijderen</button>
-</p>
+    <a href="index.php" class="terug-button">Terug</a>
+
+    <div class="container text-center">
+        <p class="d-inline-flex gap-1">
+            <a class="btn btn-dark" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Element Toevoegen</a>
+            <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Element Wijzigen</button>
+            <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Element Verwijderen</button>
+        </p>
 
 <div class="row">
   <div class="col">

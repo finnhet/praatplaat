@@ -10,10 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
 
     // Check if a new photo is uploaded
     if ($_FILES['foto']['size'] > 0) {
-        $target_dir = "../fotos/"; 
-        $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+        $target_dir = "../fotos/"; // Adjusted target directory path
         $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION));
 
         $check = getimagesize($_FILES["foto"]["tmp_name"]);
         if ($check !== false) {
@@ -22,8 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_submit"])) {
                 echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 $uploadOk = 0;
             } else {
+                // Generate a unique filename to avoid conflicts
+                $foto_name = uniqid() . "." . $imageFileType;
+                $target_file = $target_dir . $foto_name;
+
                 if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
-                    $foto_name = basename($_FILES["foto"]["name"]);
                     updatePraatplaat($plaatplaat_id, null, null, null, $foto_name);
                 } else {
                     echo "Sorry, there was an error uploading your file.";
@@ -48,8 +50,10 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
 
     // Prepare the SQL statement
     if ($foto_name) {
+        // Concatenate the '../fotos/' prefix with the image name
+        $foto_path = "../fotos/" . $foto_name;
         $stmt = $conn->prepare("UPDATE praatplaten SET foto_path=? WHERE id=?");
-        $stmt->bind_param("si", $foto_name, $id);
+        $stmt->bind_param("si", $foto_path, $id);
     } else {
         // No new photo provided, update only the name fields if they are not empty
         $sql = "UPDATE praatplaten SET ";
@@ -103,5 +107,4 @@ function updatePraatplaat($id, $naam_nl = null, $naam_fr = null, $naam_en = null
     header("Location: praatplaat.php");
     exit();
 }
-
 ?>
